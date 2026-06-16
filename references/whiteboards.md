@@ -7,22 +7,52 @@
 本环境用两套能力配合：
 
 - **`beautiful-feishu-whiteboard` skill**：提供 24 套配色风格 + 飞书 SVG 画板的硬规则。**你**来排版，它给你调色板和审美。
-- **`lark-whiteboard` skill / `whiteboard-cli`**：把 SVG 转成飞书 openapi 画板并写进文档、查询渲染图。
+- **`lark-whiteboard` skill / `whiteboard-cli`**：把 SVG **或 Mermaid** 转成飞书 openapi 画板并写进文档、查询渲染图。
+
+---
+
+## 先选对工具：表达第一，美观第二
+
+> **不必每张图都走 beautiful-whiteboard 的 SVG。先问「这块内容的本质是什么」，再选能最清楚表达它的工具——表达力第一，美观第二。**
+
+| 内容本质 | 选什么 | 为什么 |
+|---|---|---|
+| **真实的流程 / 循环 / 时序 / 因果图 / 状态机**（有方向、有节点、有边） | **Mermaid**（经 `lark-whiteboard` 直接渲染） | 自动布局连线，画「环」「多跳回溯」「闭环」远比手画 SVG 箭头省事、不易错位 |
+| **矩阵 / 卡片墙 / 程度光谱 / 计分表 / 分层架构栈 / 对照板** | **SVG**（`beautiful-feishu-whiteboard` 风格） | 需要精确版式、配色、并排卡片、色块强调——SVG 完全可控 |
+
+判断口诀：**「这是一条会动的线，还是一张要摆好的表？」** 会动的线（流程/循环/因果）→ Mermaid；要摆好的表（卡片/矩阵/光谱）→ SVG。同一篇文档里两者可以混用，每张图各按本质选。
+
+### Mermaid 画板工作流
+
+```bash
+# 1. 写 .mmd（节点文字 ≤8 字；步骤 ≤12；特殊字符用引号包：A["foo(bar)"]；subgraph 分组）
+# 2. 本地渲染看图
+npx -y @larksuite/whiteboard-cli@^0.2.11 -i diagram.mmd -o diagram.png
+# 3. 灌进已插入的空白画板块（与 SVG 同一条 openapi 管线，只是输入换成 .mmd）
+npx -y @larksuite/whiteboard-cli@^0.2.11 -i diagram.mmd --to openapi --format json \
+| lark-cli whiteboard +update --whiteboard-token <block_token> --source - \
+    --input_format raw --idempotent-token <unique> --overwrite --as bot --json
+```
+
+- Mermaid 节点文字**要短**（长标签会裁切），细节放进正文，别全塞进节点。
+- 真实「环」（如 signal→search→…→sync→signal）用 `flowchart LR/TD` + 一条虚线回边 `A -. label .-> B` 表达自维护/夜间回流。
+- 富信息流程图（很多分支 + 注释框）反而 SVG/DSL 更可控；Mermaid 最适合 sequence / class / pie / state / 简单 graph。
 
 ---
 
 ## 什么时候配什么图（调研专用映射）
 
-| 调研里的内容 | 配什么画板 |
-|---|---|
-| 两种范式 / 方案 / 产品对立 | 左右**对照板**（A vs B，中间放金句/结论条） |
-| 3–6 个核心概念 | **概念卡地图**（每张卡：定义 + 一句「它在 X 里缺席 / 谁最接近」） |
-| 程度 / 成熟度 / 自主性递进 | **光谱条**（低 → 高，把调研对象钉在某一格） |
-| 多维度逐项评估 | **计分表**（维度 × 状态，✅/🟡/🔴 标记，附一句话理由） |
-| 架构 / 模块 / 数据流 | **架构图 / 流程图**（native 矩形+连线，或 Mermaid） |
-| 阶段 / 演进 / 路线 | **时间线** |
+| 调研里的内容 | 配什么画板 | 工具 |
+|---|---|---|
+| 两种范式 / 方案 / 产品对立 | 左右**对照板**（A vs B，中间放金句/结论条） | SVG |
+| 3–6 个核心概念 | **概念卡地图**（每张卡：定义 + 一句「它在 X 里缺席 / 谁最接近」） | SVG |
+| 程度 / 成熟度 / 自主性递进 | **光谱条**（低 → 高，把调研对象钉在某一格） | SVG |
+| 多维度逐项评估 | **计分表**（维度 × 状态，✅/🟡/🔴 标记，附一句话理由） | SVG |
+| 分层架构 / 模块栈 | **分层栈板**（L1…Ln 色块 + 融合列） | SVG |
+| **流程 / 数据流 / 因果回溯 / 闭环循环 / 时序** | **流程图 / 循环图**（有向节点+边） | **Mermaid** |
+| 阶段 / 演进 / 路线 | **时间线**（横向阶段卡） | SVG（强流程感时可 Mermaid） |
 
-一张图只讲一件事；讲不清就拆成两张。
+一张图只讲一件事；讲不清就拆成两张。**选 SVG 还是 Mermaid 看上面「先选对工具」一节。**
 
 ---
 
@@ -81,6 +111,8 @@ view 出来的图，确认线上和本地一致、位置对、没串行。
 | `--source` 报 invalid character | 传了文件路径 | 改用 stdin `--source -` |
 | 4 张图全挤在一个标题下 | bash 关联数组退化 | 逐条 insert，逐条记 token |
 | 画板写进去但渲染空 | openapi 转换失败 | 先确认 `--to openapi` 那步 stdout 是合法 JSON |
+| Mermaid 节点文字被裁切 | 节点标签太长 | 节点 ≤8 字，细节放正文；步骤 ≤12 |
+| Mermaid 报解析错 | 节点含括号/特殊字符 | 用引号包：`A["foo(bar)"]` |
 | 命令行中文挂起 shell | hook 限制 | 中文写文件再 `@file`；画板文字在 SVG 里没事 |
 
 ---

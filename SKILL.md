@@ -26,7 +26,7 @@ description: 把一个调研任务（产品 / 技术 / 源码仓库 / 可行性 
 - `references/doc-structure.md`：调研文档的标准骨架与每节写法（含产品 / 源码 / 可行性 / 攻略四种变体）。
 - `references/prompt-patterns.md`：高质量调研 prompt 指令模板，以及真实调试中沉淀的「怎么问才能调得深」。
 - `references/feishu-publishing.md`：飞书 docx 发布全流程与踩坑（标题 bug、`--as bot`、知识库归档、链接 unfurl）。
-- `references/whiteboards.md`：**用画板把调研对象画清楚**——配图映射、SVG→写进文档→核验的完整工作流、渲染踩坑。配合 `beautiful-feishu-whiteboard` + `lark-whiteboard` skill。
+- `references/whiteboards.md`：**用画板把调研对象画清楚**——先按「表达第一」选对工具（Mermaid vs SVG），再看配图映射、写进文档→核验的完整工作流、渲染踩坑。配合 `beautiful-feishu-whiteboard` + `lark-whiteboard` skill。
 - `references/quality-checklist.md`：发布前自检清单，避免「看起来完整其实空洞」。
 
 ## 工作流速览
@@ -63,7 +63,9 @@ description: 把一个调研任务（产品 / 技术 / 源码仓库 / 可行性 
 
 ### 4. 下笔：套标准骨架
 
-用 `references/doc-structure.md` 的骨架。**摘要最后写、但放最前面**。复杂结构用对比表、用画板（结构 / 对比 / 光谱 / 评分一律配图，见 `references/whiteboards.md`）、用配图。**画板是默认动作不是可选**：每篇至少 1 张，复杂对象 3–5 张。
+用 `references/doc-structure.md` 的骨架。**摘要最后写、但放最前面**。复杂结构用对比表、用画板（结构 / 对比 / 光谱 / 评分一律配图，见 `references/whiteboards.md`）、用配图。**画板是默认动作不是可选**：每篇至少 1 张，复杂对象 3–5 张。**配图先选对工具——表达第一、美观第二**：真实流程/循环/因果用 Mermaid，矩阵/卡片/光谱/计分用 SVG（见 `whiteboards.md`「先选对工具」）。
+
+> **迭代加深 vs 定期重构**：用户常对已发布文档连续追问，每次追加一节；尾部补丁攒到 2–3 个就**主动整篇重排成逻辑主线**，别让文档长成流水账（见 `doc-structure.md`「定期重构」）。
 
 ### 5. 发布与归档
 
