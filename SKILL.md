@@ -25,7 +25,8 @@ description: 把一个调研任务（产品 / 技术 / 源码仓库 / 可行性 
 - `references/research-workflow.md`：从接到请求到下笔的完整工作流（澄清范围 → 取证 → 综合 → 下笔）。
 - `references/doc-structure.md`：调研文档的标准骨架与每节写法（含产品 / 源码 / 可行性 / 攻略四种变体）。
 - `references/prompt-patterns.md`：高质量调研 prompt 指令模板，以及真实调试中沉淀的「怎么问才能调得深」。
-- `references/feishu-publishing.md`：飞书 docx 发布全流程与踩坑（标题 bug、`--as bot`、知识库归档、链接 unfurl、配图）。
+- `references/feishu-publishing.md`：飞书 docx 发布全流程与踩坑（标题 bug、`--as bot`、知识库归档、链接 unfurl）。
+- `references/whiteboards.md`：**用画板把调研对象画清楚**——配图映射、SVG→写进文档→核验的完整工作流、渲染踩坑。配合 `beautiful-feishu-whiteboard` + `lark-whiteboard` skill。
 - `references/quality-checklist.md`：发布前自检清单，避免「看起来完整其实空洞」。
 
 ## 工作流速览
@@ -62,7 +63,7 @@ description: 把一个调研任务（产品 / 技术 / 源码仓库 / 可行性 
 
 ### 4. 下笔：套标准骨架
 
-用 `references/doc-structure.md` 的骨架。**摘要最后写、但放最前面**。复杂结构用对比表、用 Mermaid 导图画板、用配图。
+用 `references/doc-structure.md` 的骨架。**摘要最后写、但放最前面**。复杂结构用对比表、用画板（结构 / 对比 / 光谱 / 评分一律配图，见 `references/whiteboards.md`）、用配图。**画板是默认动作不是可选**：每篇至少 1 张，复杂对象 3–5 张。
 
 ### 5. 发布与归档
 

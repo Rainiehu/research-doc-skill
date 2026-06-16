@@ -44,6 +44,7 @@ research-doc-skill/
     ├── doc-structure.md              # 标准文档骨架 + 四种变体 + 呈现规范
     ├── prompt-patterns.md            # 高质量调研 prompt 模板 & 真实调试沉淀
     ├── feishu-publishing.md          # 飞书 docx 发布全流程与踩坑速查
+    ├── whiteboards.md                # 用画板把调研对象画清楚：配图映射 + SVG→写进文档→核验工作流
     └── quality-checklist.md          # 发布前质量自检清单
 ```
 
