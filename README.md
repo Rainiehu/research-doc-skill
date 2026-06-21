@@ -20,7 +20,7 @@
 
 一句话：**让 AI 不只是「写一篇看起来像调研的文档」，而是真的把一个问题调研透并给出可执行结论。**
 
-这套方法论是从大量真实调研实践（产品调研、源码仓库调研、功能可行性、能力盘点、现实事务攻略）中沉淀出来的，包含了把文档真正发布、归档、可用过程中踩过的坑。
+这套方法论是从大量真实调研实践（产品调研、源码仓库调研、功能可行性、能力盘点、现实事务攻略、知识体系导读）中沉淀出来的，包含了把文档真正发布、归档、可用过程中踩过的坑。
 
 ---
 
@@ -42,7 +42,7 @@ research-doc-skill/
 ├── README.md                         # 本文件
 └── references/
     ├── research-workflow.md          # 完整工作流：界定 → 取证 → 综合 → 下笔 → 发布
-    ├── doc-structure.md              # 标准文档骨架 + 四种变体 + 呈现规范
+    ├── doc-structure.md              # 标准文档骨架 + 五种变体 + 呈现规范
     ├── prompt-patterns.md            # 高质量调研 prompt 模板 & 真实调试沉淀
     ├── feishu-publishing.md          # 飞书 docx 发布全流程与踩坑速查
     ├── whiteboards.md                # 用画板把调研对象画清楚：先按「表达第一」选 Mermaid/SVG，再配图映射 + 写进文档→核验
@@ -68,12 +68,13 @@ research-doc-skill/
 >
 > **迭代加深要配合定期重构。** 用户常对已发布文档连续追问、每次追加一节；尾部补丁攒到 2–3 个就主动整篇重排成逻辑主线，别让文档长成流水账。
 
-### 四种文档变体
+### 五种文档变体
 
 - **产品 / 设计调研**：定位 / 信息架构 / 视觉语言 / 交互 / 差异化，带官方截图与精确数值。
 - **源码 / 仓库调研**：基于通读源码的架构剖析 + 核心约束，配 Mermaid 架构图。
 - **可行性 / 方案调研**：先卡硬约束，再按推荐度排序给方案。
 - **现实事务攻略**：按官方最新规则的时间线组织，附速查清单。
+- **导读 / 入门**：读懂一本书 / 一套理论 / 一位思想家——回到原典讲清核心概念与思想脉络，标出常见误读，给一条阅读路径。必带核心概念表 + 脉络导图 + 误读对照。
 
 ---
 
@@ -82,6 +83,15 @@ research-doc-skill/
 - 默认输出**飞书 docx**（含 `--as bot` 身份、`[前缀]` 标题、知识库归档、链接 unfurl）。这部分依赖 `lark-cli`。
 - 不在飞书环境时，发布章节整段跳过，改用 **Markdown / 本地文件**，调研方法论与文档骨架完全不变。
 - 标题前缀、默认知识库等为作者环境约定，换环境时按该环境调整。
+
+---
+
+## 更新日志 / Changelog
+
+### 1.3.0
+- 新增**第五种文档变体「导读 / 入门」**：用于读懂一本书 / 一套理论 / 一位思想家 / 一个学科——回到原典讲清核心概念与思想脉络、标出常见误读、给一条阅读路径，必带「核心概念表 + 脉络导图 + 误读对照」三件套。
+- 同步更新：`doc-structure.md` 加变体五、`research-workflow.md` 加「导读 / 知识体系」取证手段、`prompt-patterns.md` 加导读型样例与加料词、`quality-checklist.md` 加导读自检项、`SKILL.md` / `skill.json` 描述与对象类型补充导读。
+- Added a fifth document variant **"Reading Guide / Primer"** for understanding a book, theory, thinker, or discipline: go back to primary sources, lay out core concepts and the line of thought, flag common misreadings, and give a reading path. Ships with a concept table + thought-flow diagram + misreading comparison.
 
 ---
 
